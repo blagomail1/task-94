@@ -39,5 +39,5 @@ export default class Application extends EventEmitter {
     }
 }
 const em = new EmojiManager();
-const monkeys = ['🐒', '🐵', '🦧'];
+const monkeys = ["🐒", "🦍", "🦧"];
 document.addEventListener('DOMContentLoaded', () => em.setEmojis(monkeys));
