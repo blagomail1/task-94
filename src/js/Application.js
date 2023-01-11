@@ -8,36 +8,37 @@ export default class Application extends EventEmitter {
   }
 
   
-  class EmojiManager {
-    constructor() {
-        this.emojis = [];
-        this.banana = "🍌";
-        this.wrapperDiv = document.getElementById('emojis');
-    }
+import EventEmitter from "eventemitter3";
 
-    setEmojis(emojis) {
-        this.emojis = emojis;
-        this.clearEmojis();
-        this.displayEmojis();
-    }
+export default class Application extends EventEmitter {
+  static get events() {
+    return {
+      READY: "ready",
+    };
+  }
 
-    addBananas() {
-        return this.emojis.map(emoji => emoji + this.banana);
-    }
+  constructor() {
+    super();
+    this.emojis = [];
+    this.banana = "🍌";
+    this.emit(Application.events.READY);
+  }
+  setEmojis(emojis) {
+    this.emojis = emojis;
+    console.log(emojis);
+    let emojiDiv = document.getElementById("emojis");
+    emojiDiv.innerHTML = "";
+  }
 
-    clearEmojis() {
-        this.wrapperDiv.innerHTML = '';
-    }
-
-    displayEmojis() {
-        const monkeyBananas = this.addBananas();
-        monkeyBananas.forEach(monkeyBanana => {
-            const p = document.createElement('p');
-            p.textContent = monkeyBanana;
-            this.wrapperDiv.appendChild(p);
-        });
-    }
+  addBananas() {
+    let monkeyBanana = this.emojis.map((monkey) => monkey + this.banana);
+    console.log(monkeyBanana);
+    monkeyBanana.forEach((emoji) => {
+      let div = document.getElementById("emojis");
+      let paragraph = document.createElement("p");
+      paragraph.textContent = monkeyBanana;
+      div.appendChild(paragraph);
+      return monkeyBanana;
+    });
+  }
 }
-const em = new EmojiManager();
-const monkeys = ["🐒", "🦍", "🦧"];
-document.addEventListener('DOMContentLoaded', () => em.setEmojis(monkeys));
